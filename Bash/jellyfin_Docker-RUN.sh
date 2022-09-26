@@ -12,23 +12,25 @@
 
 APP_USER=lobrien
 MEDIA_LOCATION=/media/jelyfin
+CACHE_VOL=jellyfin-cache
+CONFIG_VOL=jellyfin-config
 
 
 # Checks to see if the Jellyfin-config volume exsists
 # If it doesn't then it'll create the volume
-if [[ "$(docker volume ls)" == *"jellyfin-config"* ]]; then
+if [[ "$(docker volume ls)" == *"${CONFIG_VOL}"* ]]; then
 	echo "Config Volume Exsists; Skipping creation"
 else
-	docker volume create jellyfin-config
+	docker volume create ${CONFIG_VOL}
 fi
 
 
 # Checks to see if the Jellyfin-Cache volume exsists
 # If it doesn't then it'll create the volume
-if [[ "$(docker volume ls)" == *"jellyfin-cache"* ]]; then
+if [[ "$(docker volume ls)" == *"${CACHE_VOL}"* ]]; then
 	echo "Cache Volume Exsists; Skipping creation"
 else
-	docker volume create jellyfin-cache
+	docker volume create ${CACHE_VOL}
 fi
 
 
@@ -37,8 +39,8 @@ fi
 docker run -d \
 	--name jellyfin \
 	--user $(id -u ${APP_USER}):$(id -g ${APP_USER}) \
-	--volume jellyfin-config:/config/ \
-	--volume jellyfin-cache:/cache/ \
+	--volume ${CONFIG_VOL}:/config/ \
+	--volume ${CACHE_VOL}:/cache/ \
 	--mount type=bind,source=${MEDIA_LOCATION},target=/media \
 	--restart=unless-stopped \
 	-p 8096:8096 \
