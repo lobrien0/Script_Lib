@@ -19,8 +19,7 @@ MEDIA_LOCATION=/media/jelyfin
 if [[ "$(docker volume ls)" == *"jellyfin-config"* ]]; then
 	echo "Config Volume Exsists; Skipping creation"
 else
-#	docker volume create jellyfin-config
-	echo "CREATING VOLUME"
+	docker volume create jellyfin-config
 fi
 
 
@@ -29,8 +28,7 @@ fi
 if [[ "$(docker volume ls)" == *"jellyfin-cache"* ]]; then
 	echo "Cache Volume Exsists; Skipping creation"
 else
-#	docker volume create jellyfin-cache
-	echo "CREATING VOLUME"
+	docker volume create jellyfin-cache
 fi
 
 
