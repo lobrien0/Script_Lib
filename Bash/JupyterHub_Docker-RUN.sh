@@ -11,19 +11,23 @@
 #		JupyterHub Server
 
 
+
+ETC_VOLUME="jupyter-etc"
+USERS_VOLUME="jupyterhub-users"
+
 # If Volume "jupyter-etc" doesn't exsist, Create it
-if [[ "$(docker volume ls)" == *"jupyter-etc"* ]]; then
+if [[ "$(docker volume ls)" == *"${ETC_VOLUME}"* ]]; then
 	echo "ETC Volume exsists; Skipping creation"
 else
-	docker volume create jupyter-etc
+	docker volume create ${ETC_VOLUME}
 fi
 
 
 # If Volume "jupyterhub-user" doesn't exsist, Create it
-if [[ "$(docker volume ls)" == *"jupyterhub-users"* ]]; then
+if [[ "$(docker volume ls)" == *"${USERS_VOLUME}"* ]]; then
 	echo "USERS Volume exsists; Skipping creation"
 else
-	docker volume create jupyterhub-users
+	docker volume create ${USERS_VOLUME}
 fi
 
 
@@ -31,8 +35,8 @@ fi
 docker run -d \
 	--name jupyter-hub \
 	-p 8000:8000 \
-	-v jupyter-etc:/etc/ \
-	-v jupyterhub-users:/home/ \
+	-v ${ETC_VOLUME}:/etc/ \
+	-v ${USERS_VOLUME}:/home/ \
 	--restart=unless-stopped \
 	lobr266238/jupyterhub-basic
 
