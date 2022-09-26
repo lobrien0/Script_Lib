@@ -12,7 +12,8 @@ Feel free to adapt use these scripts for your own use.
 
 > Please don't remove the `Author Information`
 
-> I am not responsible if a script breaks anything. They are made to work in specific situation in my own dev-envorment
+> I am not responsible if a script breaks anything.  
+> They are made to work in specific situation in my own dev-envorment
 
 ---
 
