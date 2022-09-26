@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# Author Data:
+#
+#	Author/Owner:	Docker inc.
+#	Compiled by:	Luke O'Brien
+#	Updated:	9/25/2022
+#
+#	Note:
+#		The commands are pulled from Docker inc.'s website
+#		and they are to credit for those.
+#		All I have done is compile them into this script
+#		To make it easier to install.
+#
+#	Description:
+#		The following is written to install the Docker Engine
+#		on an Ubuntu arm64 machine
+#
+#		Run as SuperUser
+
+
 #Removes anything docker just incase it was installed
 apt remove docker docker-engine docker.io containerd runc
 

@@ -1,8 +1,21 @@
 #!/usr/bin/env python
 
+# Author Data:
+#
+#       Author:     Luke O'Brien
+#       Updated:    9/25/2022
+#
+#       Description:
+#               The following prints a menu for user selection
+#               The user can set a password or check an already
+#               set password.
+#               The passwords are hashed, stored, then checked
+
+
 import hashlib as hasher          #Imports Hash libraries
 from getpass import getpass       #Import a secure Input() function
 
+#creates global var password to store main hash
 password = hasher.md5()
 
 # Prints out the Main Menu when called and takes input for selection
