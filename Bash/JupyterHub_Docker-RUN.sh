@@ -11,30 +11,17 @@
 #		JupyterHub Server
 
 
-
+# Vars' that define container settings
 ETC_VOLUME="jupyter-etc"
-USERS_VOLUME="jupyterhub-users"
-
-# If Volume "jupyter-etc" doesn't exsist, Create it
-if [[ "$(docker volume ls)" == *"${ETC_VOLUME}"* ]]; then
-	echo "ETC Volume exsists; Skipping creation"
-else
-	docker volume create ${ETC_VOLUME}
-fi
-
-
-# If Volume "jupyterhub-user" doesn't exsist, Create it
-if [[ "$(docker volume ls)" == *"${USERS_VOLUME}"* ]]; then
-	echo "USERS Volume exsists; Skipping creation"
-else
-	docker volume create ${USERS_VOLUME}
-fi
+USERS_VOLUME="jupyter-users"
+CONTAINER_NAME="jupyter-hub"
+HOST_EXSPOSED_PORT="8000"
 
 
 #starts Docker Continer
 docker run -d \
-	--name jupyter-hub \
-	-p 8000:8000 \
+	--name ${CONTAINER_NAME} \
+	-p ${HOST_EXSPOSED_PORT}:8000 \
 	-v ${ETC_VOLUME}:/etc/ \
 	-v ${USERS_VOLUME}:/home/ \
 	--restart=unless-stopped \
@@ -43,11 +30,12 @@ docker run -d \
 # The above options have the following meaning:
 #
 # --name jupyter-hub		Names the container jupyter-hub for command id
-# -p 8000:8000			Exposed port 8000 on host from port 8000 on container
+#
+# -p $(HOST_EXSPOED_PORT):8000	Exposed port "8000" on host from port 8000 on container
 #					<hostPort>:<containerPort>
 #
-# -v jupyter:etc/etc/		Mounts volume "jupyter-etc" to /etc/ on container
-# -v jupyterhub-users:/home/	Mounts volume "jupyterhub-users" to /home/ on continer
+# -v ${ETC_VOLUME}:/etc/	Mounts volume "jupyter-etc" to /etc/ on container
+# -v ${USERS_VOLUME}:/home/	Mounts volume "jupyterhub-users" to /home/ on continer
 #
 # --restart=unless-stopped	On continer interrupt the continer will restart when next
 #				able to.
